@@ -55,14 +55,14 @@ def save_xls_file(res, fil):
     data = OrderedDict()
     # sheet表数据
     sheet_1    = []
-    row_1_data = ['症状名', '拼音']  # 第一行的数据
+    row_1_data = ['拼音', '症状名']  # 第一行的数据
     sheet_1.append(row_1_data)
     # 逐行添加症状名和数据
     for value in range(0,len(res)):
         initial = res[value]
         symptom = initial[0]
         py      = initial[1]
-        row_value_data = [symptom, py]
+        row_value_data = [py, symptom]
         sheet_1.append(row_value_data)
     # 添加sheet表
     data.update({"sheet1": sheet_1})
@@ -70,3 +70,11 @@ def save_xls_file(res, fil):
     save_data(fil, data)
 
 
+"""利用给定的库,生成可供比对的单词库,每次只用运行一次下列的语句,有词库的更新再运行一次下列的语句"""
+source_filname     = '/Users/little-prince/Documents/语言处理/test1.xls'  # 原始库文件的绝对地址
+vocabulary_filname = '/Users/little-prince/Documents/语言处理/test2.xls'  # 可供比对的单词库
+
+result_1 = read_xls_file_return(source_filname)
+result_2 = str_of_result(result_1)
+result_3 = addition_pinyin(result_2, len(result_2))
+save_xls_file(result_3, vocabulary_filname)
