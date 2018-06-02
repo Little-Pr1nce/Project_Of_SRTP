@@ -13,7 +13,7 @@ def read_xls_file_print(fil):
     """读取xls文件,并打印出结果  """
     """fil为读取文件的绝对路径"""
     data = get_data(fil)
-    print("数据格式：",type(data))
+    print("数据格式：", type(data))
     for sheet_n in data.keys():
         print(sheet_n, ":", data[sheet_n])
 
@@ -54,11 +54,11 @@ def save_xls_file(res, fil):
     """res就是addition_pinyin函数处理后的列表，fil就是xls文件的绝对地址"""
     data = OrderedDict()
     # sheet表数据
-    sheet_1    = []
+    sheet_1    = []  # 首先把sheet置空
     row_1_data = ['拼音', '症状名']  # 第一行的数据
     sheet_1.append(row_1_data)
     # 逐行添加症状名和数据
-    for value in range(0,len(res)):
+    for value in range(0, len(res)):
         initial = res[value]
         symptom = initial[0]
         py      = initial[1]
@@ -68,13 +68,3 @@ def save_xls_file(res, fil):
     data.update({"sheet1": sheet_1})
     # 保存为xls文件
     save_data(fil, data)
-
-
-"""利用给定的库,生成可供比对的单词库,每次只用运行一次下列的语句,有词库的更新再运行一次下列的语句"""
-source_filname     = '/Users/little-prince/Documents/语言处理/test1.xls'  # 原始库文件的绝对地址
-vocabulary_filname = '/Users/little-prince/Documents/语言处理/test2.xls'  # 可供比对的单词库
-
-result_1 = read_xls_file_return(source_filname)
-result_2 = str_of_result(result_1)
-result_3 = addition_pinyin(result_2, len(result_2))
-save_xls_file(result_3, vocabulary_filname)
