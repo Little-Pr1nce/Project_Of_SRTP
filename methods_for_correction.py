@@ -62,5 +62,34 @@ def correct_for_txt(txt, dic):
         else:
             need_change = tem_txt[0:len(result_match)]  # 需要被纠错的单词
             txt1 = txt1.replace(need_change, result_match)
-
     return txt1  # 返回纠错过的正确文本
+
+
+def correct_txt_with_info(txt, dic):
+    """
+    修改文章中需要纠错的单词，然后告诉用户文章中专业词汇的个数和相关词汇
+    :param txt: 需要纠错的文本
+    :param dic: 字典化的标准库
+    :return: 纠错过的文本和相关词汇信息
+    """
+    txt_num = len(txt)  # 文本的长度
+    word_num = 0  # 领域词汇的个数，初始值为0
+    word_list = []  # 领域词汇的列表，初始值为0
+    txt1 = txt
+    vocabulary_trie = pytrie.SortedStringTrie(dic)  # 生成拼音字典的匹配trie
+
+    for value in range(0, txt_num):
+        tem_txt = txt[value:txt_num]  # 得到字串
+        tem_py = pypinyin.slug(tem_txt)  # 字串的拼音
+        """开始处理字串，把字串作为参数，进行匹配"""
+        result_match = vocabulary_trie.longest_prefix_value(tem_py, default='false')
+        if result_match == 'false':
+            continue
+        else:
+            need_change = tem_txt[0:len(result_match)]  # 需要被纠错的单词
+            txt1 = txt1.replace(need_change, result_match)
+            word_num = word_num + 1  # 领域词汇数量增加一个
+            word_list.append(result_match)  # 领域词汇列表增加一个
+
+    result = {'text': txt1, 'num': word_num, 'word': word_list}
+    return result
