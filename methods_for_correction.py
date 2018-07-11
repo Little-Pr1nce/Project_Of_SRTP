@@ -75,21 +75,24 @@ def correct_txt_with_info(txt, dic):
     txt_num = len(txt)  # 文本的长度
     word_num = 0  # 领域词汇的个数，初始值为0
     word_list = []  # 领域词汇的列表，初始值为0
+    value = 0  # 分片字符串，一开始从头开始分片
     txt1 = txt
     vocabulary_trie = pytrie.SortedStringTrie(dic)  # 生成拼音字典的匹配trie
 
-    for value in range(0, txt_num):
+    while value < txt_num:
         tem_txt = txt[value:txt_num]  # 得到字串
         tem_py = pypinyin.slug(tem_txt)  # 字串的拼音
         """开始处理字串，把字串作为参数，进行匹配"""
         result_match = vocabulary_trie.longest_prefix_value(tem_py, default='false')
         if result_match == 'false':
+            value = value + 1
             continue
         else:
             need_change = tem_txt[0:len(result_match)]  # 需要被纠错的单词
             txt1 = txt1.replace(need_change, result_match)
             word_num = word_num + 1  # 领域词汇数量增加一个
             word_list.append(result_match)  # 领域词汇列表增加一个
+            value = value + len(need_change)
 
     result = {'text': txt1, 'num': word_num, 'word': word_list}
     return result

@@ -7,7 +7,7 @@ from methods_for_correction import correct_txt_with_info
 
 """1）首先使用using_baidu_WebApi模块来完成识别过程，并且得到txt文件"""
 
-voice_filename = "测试音频2/新录音 14.wav"            # 音频文件名称，必要的时候要写绝对地址
+voice_filename = "音频文件/第一次测试音频/cs9.wav"            # 音频文件名称，必要的时候要写绝对地址
 uncorrected_txt_filename = "/Users/little-prince/Documents/语言处理/result_from_webapi.txt"  # 没有纠错的文本的文件路径
 rate = 16000                                # 音频文件的码率
 form = 'wav'                                # 音频文件的格式
