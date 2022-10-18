@@ -9,8 +9,8 @@ def get_token():
 
     url = "https://openapi.baidu.com/oauth/2.0/token"        # 获取token的网页网址
     grant_type = "client_credentials"                        # 用户模式，使用服务的
-    api_key = "UQGhRqeM1yDqNB7n5UvHaxPg"                     # 自己申请的应用
-    secret_key = "aa1d04e452a3858f897b5bdb716050f0"          # 自己申请的应用
+    api_key = "XXXXXXXXX"                     # 自己申请的应用
+    secret_key = "XXXXXXXXXXX"          # 自己申请的应用
 
     """数据格式如下"""
     data = {'grant_type': grant_type, 'client_id': api_key, 'client_secret': secret_key}
